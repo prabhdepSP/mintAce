@@ -1,0 +1,57 @@
+#!/bin/bash
+cd /home/paji/browser_load
+
+existing="Existing file"
+new="New file"
+choice=$(printf "Existing file\nNew file\nDelete file\nNone\nquickmarks\nOpen\n" | dmenu -p "Select Option")
+function paste(){
+	eval arg=$1
+	local description=$(printf "" | dmenu -p "Enter Description about the link: ")
+	echo  "DESCRIPTION : $description " >> $arg
+	xsel -b >> $arg
+	echo -e "\n" >> $arg
+	xsel -b >> quickmarks 
+}
+
+if [ "$choice" == "$existing" ]; then
+
+	selected=$(ls | dmenu -p "Select file")
+	paste "\$selected"
+		
+elif [ "$choice" == "$new" ]; then
+
+	new_file=$(printf "" | dmenu -p "enter new file name")
+	paste "\$new_file"
+	
+elif [ "$choice" == "Delete a file" ]
+then 
+	selected=$(ls | dmenu -p "Select file to delete: ")
+	rm "$selected"
+
+elif [ "$choice" == "None" ]
+then 
+	printf "No option chosen" | dmenu -p "ERROR :"
+	exit
+
+elif [ "$choice" == "quickmarks" ]
+then 
+	lines=$(cat quickmarks | wc -l)
+	selected=$(cat quickmarks | dmenu -p "Select link: " -l $lines)
+	echo "$selected" | xsel --clipboard 
+	paste_in_browser=$(xsel -b)
+	second_selection=$(printf "New Tab\nCurrent Tab\n" | dmenu -p "Select Tab")
+	if [ "$second_selection" == "New Tab" ]
+	then 
+		xdotool key Escape Shift+o
+	        xdotool type --delay 75 "$paste_in_browser"
+		xdotool key Return
+	fi  
+	if [ "$second_selection" == "Current Tab" ]
+	then 
+		xdotool key Escape o
+		xdotool type --delay 75 "$paste_in_browser"
+		xdotool key Return 
+	fi 
+else 
+	selected=$(ls | dmenu -p "Select file")
+fi 	
