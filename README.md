@@ -8,11 +8,15 @@ Dependencies for SCRIPT---pstorelink-----:
 
 ### Installation Guide 
 
-    git clone https://github.com/prabhdepSP/mintAce.git
-    ./install.sh
+    Step1--  git clone https://github.com/prabhdepSP/mintAce.git
+
+    Then after execute the next instruction with sudo 
+
+    Step2--  ./install.sh
 
 ### User Guide
 
 **Works Best with Qute-Browser**
 
 For the best performance use a key binding for invoking the script.
+`For other browsers you would have to adjust the xdotool part in pstorelink script.`
