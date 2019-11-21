@@ -22,4 +22,5 @@ For the best performance use a key binding for invoking the script.
 `For other browsers you would have to adjust the xdotool part in pstorelink script.`
 
 For adding a keybinding to this script. Go to your i3 config file and paste the below line.
+
 `bindsym **Any key you want** exec /path/to/pstorelink`
