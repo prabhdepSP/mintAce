@@ -1,0 +1,20 @@
+#!/bin/bash
+choice=$(printf "Delete\nAdd to favourites\nExit" | dmenu -p "Select:")
+if [ "$choice" == "Delete" ]
+then 
+      	echo "doexnot matter"	
+	wal=$(awk 'BEGIN{FS="/"} END{print $NF}' ~/.config/i3/curwal) 
+	rm ~/Desktop/wall/$wal
+	bash ~/.config/i3/background.sh
+fi 
+if [ "$choice" == "Add to favourites" ] 
+then
+       echo "here only"	
+	wal=$(awk 'BEGIN{FS="/"} END{print $NF}' ~/.config/i3/curwal) 
+	cp ~/Desktop/wall/$wal ~/Pictures/favouriteWall/
+fi
+if [ "$choice" == "Exit" ]
+then	
+	exit
+fi
+
